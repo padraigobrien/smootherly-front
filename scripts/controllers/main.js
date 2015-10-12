@@ -5,7 +5,7 @@
  */
 
 angular
-    .module('homer')
+    .module('Smootherly')
     .controller('appCtrl', appCtrl);
 
 function appCtrl($http, $scope) {

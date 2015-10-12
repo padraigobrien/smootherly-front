@@ -5,7 +5,7 @@
  */
 
 angular
-    .module('homer')
+    .module('Smootherly')
     .directive('pageTitle', pageTitle)
     .directive('sideNavigation', sideNavigation)
     .directive('minimalizaMenu', minimalizaMenu)
