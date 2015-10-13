@@ -1,0 +1,85 @@
+<!-- Header -->
+<div id="header" ng-include="'views/common/header.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'views/common/navigation.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+
+  <div class="content" animate-panel>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="hpanel">
+          <div class="panel-body text-center h-200">
+            <i class="pe-7s-graph1 fa-4x"></i>
+
+            <h1 class="m-xs">€1 206.90</h1>
+
+            <h3 class="font-extra-bold no-margins text-success">
+              Total Savings
+            </h3>
+            <small>You started saving on the 1st of September 2014</small>
+          </div>
+          <div class="panel-footer">
+            This is standard panel footer
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3" ng-controller="dashboardCtrl">
+        <div class="hpanel stats">
+          <div class="panel-body h-200">
+            <div class="stats-title pull-left">
+              <h4>Savings</h4>
+            </div>
+            <div class="stats-icon pull-right">
+              <i class="pe-7s-battery fa-4x"></i>
+            </div>
+            <div class="clearfix"></div>
+            <div class="m-t-xs">
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <small class="stat-label">Today</small>
+                  <h4>€1.20 <i class="fa fa-level-up text-success"></i></h4>
+                </div>
+                <div class="col-xs-6">
+                  <small class="stat-label">Last week</small>
+                  <h4>€10.50 <i class="fa fa-level-up text-success"></i></h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <small class="stat-label">This month</small>
+                  <h4>$220,20 <i class="fa fa-level-up text-success"></i></h4>
+                </div>
+                <div class="col-xs-6">
+                  <small class="stat-label">Last 12 months</small>
+                  <h4>$900,70 <i class="fa fa-level-up text-success"></i></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            This is standard panel footer
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" ng-controller="chartjsCtrl">
+        <div class="hpanel">
+          <div class="panel-heading">
+            <div panel-tools></div>
+            Spending in the last 6 months
+          </div>
+          <div class="panel-body">
+            <div>
+              <canvas linechart options="sharpLineOptions" data="sharpLineData" height="250" responsive=true ></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+</div>
+</div>
+</div>

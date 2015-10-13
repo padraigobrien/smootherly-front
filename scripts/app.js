@@ -1,19 +1,15 @@
-/**
- * HOMER - Responsive Admin Theme
- * version 1.8
- *
- */
-
 angular.module('Smootherly', [
-    'ui.router',                // Angular flexible routing
-    'ui.bootstrap',             // AngularJS native directives for Bootstrap
-    'auth0',
-    'ngRoute',
-    'Smootherly.login',
-    'angular-storage',
-    'angular-jwt'
+  'ui.router',                // Angular flexible routing
+  'ui.bootstrap',             // AngularJS native directives for Bootstrap
+  'auth0',
+  'ngRoute',
+  'Smootherly.login',
+  'Smootherly.dashboard',
+  'angular-storage',
+  'angular-jwt',
+  'angles'                 // Angular ChartJS
 ])
-  .config( function myAppConfig ($stateProvider, $urlRouterProvider, $compileProvider, $routeProvider, authProvider, $httpProvider, $locationProvider,jwtInterceptorProvider) {
+  .config(function myAppConfig($stateProvider, $urlRouterProvider, $compileProvider, $routeProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
 
     // Optimize load start with remove binding information inside the DOM element
     $compileProvider.debugInfoEnabled(true);
@@ -21,13 +17,13 @@ angular.module('Smootherly', [
     // Set default state
     $urlRouterProvider.otherwise("/login");
     $stateProvider
-
       // Dashboard - Main page
       .state('dashboard', {
         url: "/dashboard",
-        templateUrl: "views/dashboard.html",
+        controller: "dashboardCtrl",
+        templateUrl: "dashboard/dashboard.html",
         data: {
-          pageTitle: 'Dashboard'
+          pageTitle: 'Smootherly'
         }
       })
       .state('login', {
@@ -36,24 +32,24 @@ angular.module('Smootherly', [
         templateUrl: "Login/login.html"
       });
 
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 
     authProvider.init({
       domain: "smootherly.eu.auth0.com",
       clientID: "0m2Mcwwgy382zPa1qWk2GyC0cjJwVDU4"
     });
 
-    jwtInterceptorProvider.tokenGetter = function(store) {
+    jwtInterceptorProvider.tokenGetter = function (store) {
       return store.get('token');
     }
   })
-  .run(function($rootScope, $state, auth, store) {
+  .run(function ($rootScope, $state, auth, store, jwtHelper) {
 
     auth.hookEvents();
 
     $rootScope.$state = $state;
 
-    $rootScope.$on('$locationChangeStart', function() {
+    $rootScope.$on('$locationChangeStart', function () {
       if (!auth.isAuthenticated) {
         var token = store.get('token');
         if (token) {
@@ -62,7 +58,9 @@ angular.module('Smootherly', [
           } else {
             $location.path('/login');
           }
-        }}})
+        }
+      }
+    })
   });
 
 

@@ -17,7 +17,7 @@
     "mode/*/*test.js",
     "mode/*/*.html"
   ],
-  "homepage": "https://github.com/codemirror/CodeMirror",
+  "homepage": "https://github.com/marijnh/CodeMirror",
   "version": "5.7.0",
   "_release": "5.7.0",
   "_resolution": {
@@ -25,7 +25,7 @@
     "tag": "5.7.0",
     "commit": "153d92b57611063877bffc5f449a7e8eee2c3887"
   },
-  "_source": "git://github.com/codemirror/CodeMirror.git",
+  "_source": "git://github.com/marijnh/CodeMirror.git",
   "_target": "^5.0",
   "_originalSource": "codemirror"
 }
