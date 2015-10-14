@@ -1,0 +1,22 @@
+<div id="navigation" ng-controller="navigationCtrl">
+  <div class="profile-picture">
+    <!--<a href="index.html">-->
+      <img ng-src="{{auth.profile.picture}}" class="img-circle m-b" alt="logo">
+    <!--</a>-->
+
+    <div class="stats-label text-color">
+      <span class="font-extra-bold font-uppercase"> {{auth.profile.name}}</span>
+    </div>
+  </div>
+  <ul side-navigation class="nav" id="side-menu">
+    <li ui-sref-active="active">
+      <a ui-sref="dashboard"> <span class="nav-label">Savings</span></a>
+    </li>
+    <li ui-sref-active="active">
+      <a ui-sref="options"> <span class="nav-label">League tables</span></a>
+    </li>
+    <li ui-sref-active="active">
+    <a ui-sref="login" ng-click="logout()"> <span class="nav-label">Logout</span></a>
+  </li>
+  </ul>
+</div>

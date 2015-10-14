@@ -1,6 +1,5 @@
 angular.module( 'Smootherly.dashboard', ['auth0'])
-  .controller( 'dashboardCtrl', function dashboardController($scope, auth) {
-console.log(auth);
+  .controller( 'dashboardCtrl', function dashboardController($scope, auth, store) {
       $scope.auth = auth;
   })
   .controller( 'chartjsCtrl', function dashboardController($scope) {

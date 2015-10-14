@@ -1,5 +1,5 @@
 /**
- * HOMER - Responsive Admin Theme
+   * HOMER - Responsive Admin Theme
  * version 1.8
  *
  */

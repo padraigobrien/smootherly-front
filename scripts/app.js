@@ -5,6 +5,7 @@ angular.module('Smootherly', [
   'ngRoute',
   'Smootherly.login',
   'Smootherly.dashboard',
+  'Smootherly.navigation',
   'angular-storage',
   'angular-jwt',
   'angles'                 // Angular ChartJS
@@ -15,21 +16,30 @@ angular.module('Smootherly', [
     $compileProvider.debugInfoEnabled(true);
 
     // Set default state
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/landing");
     $stateProvider
       // Dashboard - Main page
       .state('dashboard', {
         url: "/dashboard",
         controller: "dashboardCtrl",
-        templateUrl: "dashboard/dashboard.html",
+        templateUrl: "components/dashboard/dashboard.html",
         data: {
           pageTitle: 'Smootherly'
-        }
+        },
+        requiresLogin: true
       })
       .state('login', {
         controller: 'LoginCtrl',
         url: "/login",
-        templateUrl: "Login/login.html"
+        templateUrl: "components/Login/login.html"
+      })
+      .state('landing', {
+        url: "/landing",
+        templateUrl: "components/Landing/landing.html",
+        data: {
+          pageTitle: 'Landing page',
+          specialClass: 'landing-page'
+        }
       });
 
     //$locationProvider.html5Mode(true);
@@ -41,26 +51,48 @@ angular.module('Smootherly', [
 
     jwtInterceptorProvider.tokenGetter = function (store) {
       return store.get('token');
-    }
+    };
+
+    $httpProvider.interceptors.push('jwtInterceptor');
   })
-  .run(function ($rootScope, $state, auth, store, jwtHelper) {
+  .run(function ($rootScope, $state, auth, store, jwtHelper, $location) {
 
     auth.hookEvents();
-
     $rootScope.$state = $state;
 
     $rootScope.$on('$locationChangeStart', function () {
-      if (!auth.isAuthenticated) {
-        var token = store.get('token');
-        if (token) {
-          if (!jwtHelper.isTokenExpired(token)) {
+      var token = store.get('token');
+      if (token) {
+        if (!jwtHelper.isTokenExpired(token)) {
+          if (!auth.isAuthenticated) {
             auth.authenticate(store.get('profile'), token);
-          } else {
-            $location.path('/login');
           }
+        } else {
+          // Either show the login page or use the refresh token to get a new idToken
+          $location.path('/login');
         }
       }
-    })
+      else {
+        switch ($location.url()) {
+          case '':
+            console.log("No url");
+            break;
+          case '/landing':
+            console.log("Landing page");
+            break;
+          case '/dashboard':
+            console.log("dashboard page");
+            $location.path('/login');
+            break;
+          case '/login':
+            console.log("login page");
+            break;
+          default:
+            console.log("no matching route");
+            $location.path('/login');
+        }
+      }
+    });
   });
 
 
